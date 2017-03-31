@@ -1,12 +1,10 @@
-package maze.graph;
+package graph;
 
 import static org.junit.Assert.assertEquals;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import graph.Path;
-import graph.SearchImplBreadthFirst;
 import graph.model.Edge;
 import graph.model.Vertex;
 
