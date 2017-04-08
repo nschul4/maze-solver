@@ -33,10 +33,10 @@ public class MazeGraph {
 
     public void buildGraph(final String[] textLines) {
         final int expectedLineLength = textLines[0].length();
-        LOG.debug("expectedLineLength=" + expectedLineLength);
+        LOG.debug("expectedLineLength={}", expectedLineLength);
         for (int j = 0; j < textLines.length; ++j) {
             final String line = textLines[j];
-            LOG.trace("line[" + j + "]=\"" + line + "\"");
+            LOG.trace("line[{}]=\"{}\"", j, line);
             if (line.length() != expectedLineLength) {
                 throw new IllegalStateException();
             }
@@ -44,7 +44,7 @@ public class MazeGraph {
                 final char charAtI = line.charAt(i);
                 if (charAtI == ' ') {
                     final String newVertexId = createVertexId(i, j);
-                    LOG.debug("adding vertex " + newVertexId);
+                    LOG.debug("adding vertex {}", newVertexId);
                     final Vertex newVertex = new MazeVertex(newVertexId, i, j);
                     if (i > 0) {
                         final char charAtIMinus1 = line.charAt(i - 1);
@@ -54,7 +54,7 @@ public class MazeGraph {
                             if (westernVertex == null) {
                                 throw new IllegalStateException();
                             }
-                            LOG.debug("connecting vertices: " + newVertexId + " <EW> " + westernVertexId);
+                            LOG.debug("connecting vertices: {} <EW> {}", newVertexId, westernVertexId);
                             connectVertices(westernVertex, newVertex, "E");
                             connectVertices(newVertex, westernVertex, "W");
                         }
@@ -67,7 +67,7 @@ public class MazeGraph {
                             if (northernVertex == null) {
                                 throw new IllegalStateException();
                             }
-                            LOG.debug("connecting vertices: " + newVertexId + " <NS> " + northernVertexId);
+                            LOG.debug("connecting vertices: {} <NS> {}", newVertexId, northernVertexId);
                             connectVertices(northernVertex, newVertex, "S");
                             connectVertices(newVertex, northernVertex, "N");
                         }
