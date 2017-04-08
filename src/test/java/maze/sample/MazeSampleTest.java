@@ -5,8 +5,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import graph.Search;
 import graph.SearchImplBreadthFirst;
@@ -17,7 +18,7 @@ import maze.util.FileUtil;
 
 public class MazeSampleTest {
 
-    private static final Logger LOG = Logger.getLogger(MazeSampleTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MazeSampleTest.class);
 
     final MazeGraph mazeGraph = new MazeGraph();
 

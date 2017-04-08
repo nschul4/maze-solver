@@ -2,15 +2,16 @@ package graph;
 
 import static org.junit.Assert.assertEquals;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import graph.model.Edge;
 import graph.model.Vertex;
 
 public class SearchImplBreadthFirstTest {
 
-    private static final Logger LOG = Logger.getLogger(SearchImplBreadthFirstTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SearchImplBreadthFirstTest.class);
 
     final SearchImplBreadthFirst searchImplBreadthFirst = new SearchImplBreadthFirst();
 

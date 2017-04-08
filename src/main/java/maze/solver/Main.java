@@ -3,7 +3,8 @@ package maze.solver;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import graph.Search;
 import graph.SearchImplBreadthFirst;
@@ -14,7 +15,7 @@ import maze.util.FileUtil;
 
 public class Main {
 
-    private static final Logger LOG = Logger.getLogger(Main.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
     public static void main(final String[] args) throws IOException {
         final Main main = new Main();

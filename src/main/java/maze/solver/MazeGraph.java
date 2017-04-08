@@ -3,14 +3,15 @@ package maze.solver;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import graph.model.Edge;
 import graph.model.Vertex;
 
 public class MazeGraph {
 
-    private static final Logger LOG = Logger.getLogger(MazeGraph.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MazeGraph.class);
 
     final Map<String, Vertex> vertexMap = new HashMap<String, Vertex>();
 
