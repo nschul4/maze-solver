@@ -1,10 +1,12 @@
 package maze.solver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import graph.Path;
 import graph.model.Vertex;
+import maze.util.FileUtil;
 
 public class MazePath extends Path {
 
@@ -12,16 +14,20 @@ public class MazePath extends Path {
         super(resultVertex);
     }
 
-    public String createMazeTextWithMarkedPath(final String[] textLines) {
+    public String createMazeTextWithMarkedPath(final byte[][] textLines) {
+        return FileUtil.textToString(createMazeTextWithMarkedPathAsBytes(textLines));
+    }
+
+    private byte[][] createMazeTextWithMarkedPathAsBytes(final byte[][] textLines) {
 
         // create path
         final List<MazeVertex> mazeVertexList = createMazeVertexList(resultVertex);
 
-        // create modifiable byte representation of maze lines
+        // create copy of the maze text
         final int mazeHeight = textLines.length;
-        final byte[][] mazeWithPath = new byte[mazeHeight][];
+        final byte[][] mazeWithPath = new byte[textLines.length][];
         for (int j = 0; j < mazeHeight; ++j) {
-            mazeWithPath[j] = textLines[j].getBytes();
+            mazeWithPath[j] = Arrays.copyOf(textLines[j], textLines[j].length);
         }
 
         // mark path
@@ -35,16 +41,7 @@ public class MazePath extends Path {
         mazeWithPath[mazeVertexList.get(trackPathListLength - 1).getJ()][mazeVertexList.get(trackPathListLength - 1)
                 .getI()] = 'E';
 
-        // convert bytes back to strings
-        final StringBuffer sb = new StringBuffer();
-        for (int j = 0; j < mazeHeight; ++j) {
-            sb.append(new String(mazeWithPath[j]));
-            if (j < mazeHeight - 1) {
-                sb.append("\n");
-            }
-        }
-
-        return sb.toString();
+        return mazeWithPath;
     }
 
     private List<MazeVertex> createMazeVertexList(final Vertex resultVertex) {

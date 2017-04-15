@@ -27,10 +27,9 @@ public class MazeSampleTest {
         final String expectedFileName = "sample/" + mazeSample.getClass().getSimpleName() + ".txt";
         assertEquals(expectedFileName, mazeSample.getFileName());
         LOG.info("reading maze sample text file: {}", mazeSample.getFileName());
-        final String text = FileUtil.readText(mazeSample.getFileName());
-        LOG.info("maze sample text: [\n{}]", text);
-        final String[] textLines = FileUtil.splitTextIntoTextLines(text);
-        mazeGraph.buildGraph(textLines);
+        final byte[][] text = FileUtil.readText(mazeSample.getFileName());
+        LOG.info("maze sample text: [\n{}]", FileUtil.textToString(text));
+        mazeGraph.buildGraph(text);
         final Vertex startVertex = mazeGraph.getVertexByLocation(mazeSample.getStartI(), mazeSample.getStartJ());
         final Vertex endVertex = mazeGraph.getVertexByLocation(mazeSample.getEndI(), mazeSample.getEndJ());
         if (startVertex == null || endVertex == null) {
@@ -44,7 +43,7 @@ public class MazeSampleTest {
         assertNotNull(resultVertex);
         final MazePath mazePath = new MazePath(resultVertex);
         LOG.info("path={}", mazePath);
-        LOG.info("maze text with marked path: [\n{}]", mazePath.createMazeTextWithMarkedPath(textLines));
+        LOG.info("maze text with marked path: [\n{}]", mazePath.createMazeTextWithMarkedPath(text));
     }
 
     @Test

@@ -31,23 +31,24 @@ public class MazeGraph {
         return vertexMap.get(createVertexId(i, j));
     }
 
-    public void buildGraph(final String[] textLines) {
-        final int expectedLineLength = textLines[0].length();
+    public void buildGraph(final byte[][] textLines) {
+        final int expectedLineLength = textLines[0].length;
         LOG.debug("expectedLineLength={}", expectedLineLength);
+        byte[] prevLine = null;
         for (int j = 0; j < textLines.length; ++j) {
-            final String line = textLines[j];
+            final byte[] line = textLines[j];
             LOG.trace("line[{}]=\"{}\"", j, line);
-            if (line.length() != expectedLineLength) {
+            if (line.length != expectedLineLength) {
                 throw new IllegalStateException();
             }
-            for (int i = 0; i < line.length(); ++i) {
-                final char charAtI = line.charAt(i);
+            for (int i = 0; i < line.length; ++i) {
+                final char charAtI = (char) line[i];
                 if (charAtI == ' ') {
                     final String newVertexId = createVertexId(i, j);
                     LOG.debug("adding vertex {}", newVertexId);
                     final Vertex newVertex = new MazeVertex(newVertexId, i, j);
                     if (i > 0) {
-                        final char charAtIMinus1 = line.charAt(i - 1);
+                        final char charAtIMinus1 = (char) line[i - 1];
                         if (charAtIMinus1 == ' ') {
                             final String westernVertexId = createVertexId(i - 1, j);
                             final Vertex westernVertex = vertexMap.get(westernVertexId);
@@ -60,7 +61,10 @@ public class MazeGraph {
                         }
                     }
                     if (j > 0) {
-                        final char charAtJMinus1 = textLines[j - 1].charAt(i);
+                        if (prevLine == null) {
+                            throw new IllegalStateException();
+                        }
+                        final char charAtJMinus1 = (char) prevLine[i];
                         if (charAtJMinus1 == ' ') {
                             final String northernVertexId = createVertexId(i, j - 1);
                             final Vertex northernVertex = vertexMap.get(northernVertexId);
@@ -75,6 +79,7 @@ public class MazeGraph {
                     vertexMap.put(newVertexId, newVertex);
                 }
             }
+            prevLine = line;
         }
     }
 }

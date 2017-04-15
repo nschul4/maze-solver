@@ -2,7 +2,6 @@ package maze.solver;
 
 import java.io.IOException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,11 +26,10 @@ public class Main {
         final AbstractMazeSample mazeSample = new MazeSampleFromPdf();
 
         LOG.info("reading maze sample text file: {}", mazeSample.getFileName());
-        final String text = FileUtil.readText(mazeSample.getFileName());
-        LOG.info("maze sample text: [\n{}]", text);
+        final byte[][] textLines = FileUtil.readText(mazeSample.getFileName());
+        LOG.info("maze sample text: [\n{}]", FileUtil.textToString(textLines));
 
         LOG.trace("parsing text to create graph");
-        final String[] textLines = StringUtils.split(text, "\r\n");
         if (textLines.length < 1) {
             throw new IllegalStateException();
         }
