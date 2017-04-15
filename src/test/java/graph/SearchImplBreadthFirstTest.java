@@ -40,7 +40,7 @@ public class SearchImplBreadthFirstTest {
         assertEquals(v2.getParent(), v1);
 
         final Path path = new Path(resultVertex);
-        LOG.info("path=" + path);
+        LOG.info("path={}", path);
     }
 
     private void connectVertices(final Vertex from, final Vertex to, final String direction,

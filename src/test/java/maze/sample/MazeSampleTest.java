@@ -26,23 +26,16 @@ public class MazeSampleTest {
         assertNotNull(mazeSample.getFileName());
         final String expectedFileName = "sample/" + mazeSample.getClass().getSimpleName() + ".txt";
         assertEquals(expectedFileName, mazeSample.getFileName());
-        LOG.info("reading maze sample text file: " + mazeSample.getFileName());
+        LOG.info("reading maze sample text file: {}", mazeSample.getFileName());
         final String text = FileUtil.readText(mazeSample.getFileName());
-        LOG.info("maze sample text: [\n" + text + "]");
+        LOG.info("maze sample text: [\n{}]", text);
         final String[] textLines = FileUtil.splitTextIntoTextLines(text);
         mazeGraph.buildGraph(textLines);
         final Vertex startVertex = mazeGraph.getVertexByLocation(mazeSample.getStartI(), mazeSample.getStartJ());
         final Vertex endVertex = mazeGraph.getVertexByLocation(mazeSample.getEndI(), mazeSample.getEndJ());
         if (startVertex == null || endVertex == null) {
-            LOG.info("\n" +
-            //
-                    "getStartI=" + mazeSample.getStartI() + ", getStartJ=" + mazeSample.getStartJ() + "\n" +
-                    //
-                    "getEndI=" + mazeSample.getEndI() + ", getEndJ=" + mazeSample.getEndJ() + "\n" +
-                    //
-                    text
-            //
-            );
+            LOG.info("getStartI={}, getStartJ={}, getEndI={}, getEndJ={}", mazeSample.getStartI(),
+                    mazeSample.getStartJ(), mazeSample.getEndI(), mazeSample.getEndJ(), text);
         }
         assertNotNull("getStartI=" + mazeSample.getStartI() + ", getStartJ=" + mazeSample.getStartJ(), startVertex);
         assertNotNull("getEndI=" + mazeSample.getEndI() + ", getEndJ=" + mazeSample.getEndJ(), endVertex);
@@ -50,8 +43,8 @@ public class MazeSampleTest {
         final Vertex resultVertex = graphSearch.search(endVertex, startVertex);
         assertNotNull(resultVertex);
         final MazePath mazePath = new MazePath(resultVertex);
-        LOG.info("path=" + mazePath);
-        LOG.info("maze text with marked path: [\n" + mazePath.createMazeTextWithMarkedPath(textLines) + "]");
+        LOG.info("path={}", mazePath);
+        LOG.info("maze text with marked path: [\n{}]", mazePath.createMazeTextWithMarkedPath(textLines));
     }
 
     @Test
